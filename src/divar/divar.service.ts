@@ -26,7 +26,6 @@ export class DivarService {
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 13.6; rv:118.0) Gecko/20100101 Firefox/118.0',
       'Mozilla/5.0 (iPhone; CPU iPhone OS 17_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.6 Mobile/15E148 Safari/604.1',
       'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Mobile Safari/537.36',
-      // ... بقیه UA ها
     ];
 
     const randomUA = userAgents[Math.floor(Math.random() * userAgents.length)];
@@ -125,6 +124,8 @@ export class DivarService {
         if (contactBtn) {
           await this.mouseMove(adPage, contactBtn);
 
+          await this.delay(Math.floor(Math.random() * 8000 + 7000));
+
           await adPage.waitForFunction(
             () =>
               !!document.querySelector('div.kt-base-row__end a[href^="tel:"]'),
@@ -153,9 +154,9 @@ export class DivarService {
     let sameCount = 0;
     while (sameCount < 5) {
       await page.evaluate(() => {
-        window.scrollBy(0, Math.floor(Math.random() * 150 + 100));
+        window.scrollBy(0, Math.floor(Math.random() * 100 + 50));
       });
-      await this.delay(Math.floor(Math.random() * 1000 + 800));
+      await this.delay(Math.floor(Math.random() * 8000 + 7000));
       const newHeight = await page.evaluate('document.body.scrollHeight');
       if (newHeight === lastHeight) sameCount++;
       else {
