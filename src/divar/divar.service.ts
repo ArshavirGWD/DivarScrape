@@ -109,7 +109,9 @@ export class DivarService {
       return items;
     });
 
+    const limitedAds: Ad[] = [];
     for (const ad of ads) {
+      if (limitedAds.length >= 40) break;
       if (!ad.link) continue;
 
       try {
@@ -144,9 +146,11 @@ export class DivarService {
         console.warn(`Cannot get phone for ${ad.link}:`, err);
         ad.phone = undefined;
       }
+
+      limitedAds.push(ad);
     }
 
-    return ads;
+    return limitedAds;
   }
 
   private async scroll(page: Page) {
